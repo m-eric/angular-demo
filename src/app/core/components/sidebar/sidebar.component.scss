@@ -1,0 +1,136 @@
+// mixins--------------------------------------------------
+@mixin on-mobile {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin on-desktop {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin sidenav-link {
+  cursor: pointer;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.8);
+  &:hover {
+    color: white;
+  }
+}
+
+// aside container - custom--------------------------------
+aside.aside-custom {
+  background-color: #343a40;
+  transition: width 0.3s ease;
+  -webkit-transition: width 0.3s ease;
+  -moz-transition: width 0.3s ease;
+
+  @include on-mobile {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+
+    &.toggled {
+      width: 250px;
+    }
+  }
+
+  @include on-desktop {
+    width: 250px;
+
+    &.toggled {
+      width: 75px;
+
+      &:hover {
+        width: 250px;
+
+        & > nav > a > span {
+          display: inline;
+        }
+      }
+    }
+  }
+}
+
+// mobile overlay------------------------------------------
+.bg-mobile-overlay {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+// Brand link----------------------------------------------
+a.brand-custom {
+  position: relative;
+  display: block;
+  height: 3.5rem;
+  border-bottom: 1px solid #4b545c;
+  font-size: 1.7rem;
+  font-weight: 300;
+  @include sidenav-link;
+}
+
+a.brand-custom img {
+  position: absolute;
+  top: 0.7rem;
+  left: 1.28rem;
+}
+
+a.brand-custom span {
+  position: absolute;
+  top: 0.32rem;
+  left: 4rem;
+}
+@include on-desktop {
+  aside.toggled a.brand-custom span {
+    opacity: 0;
+  }
+  aside.toggled:hover a.brand-custom span {
+    opacity: 1;
+  }
+}
+
+// Nav links-----------------------------------------------
+a.sidelink {
+  display: block;
+  position: relative;
+  height: 2.5rem;
+  margin-bottom: 0.2rem;
+  font-size: 1.1rem;
+  border-radius: 0.25rem;
+  @include sidenav-link;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  &.active,
+  &.active:hover,
+  &.active:focus {
+    color: white;
+    background-color: #007bff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  }
+}
+
+a.sidelink i {
+  position: absolute;
+  top: 0.76rem;
+  left: 1.25rem;
+  margin-right: 0.5rem;
+}
+
+a.sidelink span {
+  position: absolute;
+  top: 0.45rem;
+  left: 3.1rem;
+}
+@include on-desktop {
+  aside.toggled a.sidelink span {
+    opacity: 0;
+  }
+  aside.toggled:hover a.sidelink span {
+    opacity: 1;
+  }
+}

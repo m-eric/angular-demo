@@ -1,0 +1,49 @@
+<aside
+  class="min-h-screen flex-1 overflow-hidden z-50 aside-custom"
+  [class.toggled]="isToggled"
+>
+  <!-- Brand item -->
+  <a
+    [href]="brandLink"
+    target="_blank"
+    class="brand-custom"
+    [class.toggled]="isToggled"
+    (click)="onActivateLink()"
+  >
+    <img src="/assets/img/logo-32x32.png" />
+    <span [class.toggled]="isToggled">{{ brandTitle }}</span>
+  </a>
+
+  <!-- Nav list -->
+  <nav class="py-6 px-2">
+    <!-- Dashboard -->
+    <a
+      class="sidelink"
+      [routerLink]="['/']"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      (click)="onActivateLink()"
+    >
+      <i class="fas fa-tachometer-alt"></i>
+      <span [class.toggled]="isToggled">Панел</span>
+    </a>
+
+    <!-- Users -->
+    <a
+      class="sidelink"
+      [routerLink]="['/korisnici']"
+      routerLinkActive="active"
+      *ngIf="role === 'SYSADMIN'"
+    >
+      <i class="fas fa-users-cog"></i>
+      <span [class.toggled]="isToggled">Корисници</span>
+    </a>
+  </nav>
+</aside>
+
+<!-- Overlay (mobile) -->
+<div
+  class="fixed top-0 md:hidden z-40 w-screen h-screen bg-mobile-overlay"
+  *ngIf="isToggled"
+  (click)="onToggleSidebar()"
+></div>

@@ -1,0 +1,18 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Тест Корисник",
+      "email": "test@test.com",
+      "password": "test",
+      "role": "SYSADMIN"
+    },
+    {
+      "name": "Drugi",
+      "email": "asd@asd.asd",
+      "role": "DISABLED",
+      "password": "TbDc5uN9T8TE",
+      "id": 2
+    }
+  ]
+}

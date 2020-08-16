@@ -1,0 +1,41 @@
+<div class="flex max-w-lg {{ class }}">
+  <button
+    type="submit"
+    class="btn btn-primary px-4"
+    [class.cursor-default]="disabled || status === 'loading'"
+    [disabled]="disabled || status === 'loading'"
+    #buttonSubmit
+  >
+    Сними
+  </button>
+
+  <!-- Loading spinner -->
+  <div
+    class="ml-4 text-2xl text-blue-600"
+    style="padding-top: 0.1rem;"
+    *ngIf="status === 'loading'"
+  >
+    <i class="fas fa-cog fa-spin"></i>
+  </div>
+
+  <!-- Success message -->
+  <div class="ml-4 pt-2 text-xl text-green-700" *ngIf="status === 'success'">
+    <i class="fas fa-check"></i>
+    Снимљено
+  </div>
+
+  <!-- Error message -->
+  <div class="ml-4 pt-2 text-xl text-red-700" *ngIf="status === 'error'">
+    <i class="fas fa-exclamation-triangle"></i>
+    Грешка
+  </div>
+
+  <div
+    class="ml-auto cursor-pointer py-2 text-xl text-blue-500 hover:text-blue-700"
+    *ngIf="showBackButton"
+    (click)="goBack()"
+  >
+    <i class="fas fa-chevron-left"></i>
+    Назад
+  </div>
+</div>

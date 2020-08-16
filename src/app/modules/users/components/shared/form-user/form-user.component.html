@@ -1,0 +1,46 @@
+<div [formGroup]="formGroup" [class]="class">
+  <!-- name -->
+  <div class="form-group max-w-lg">
+    <label>Име</label>
+    <input
+      type="text"
+      class="form-control"
+      [class.is-invalid]="
+        !formGroup.get('name').valid && formGroup.get('name').touched
+      "
+      formControlName="name"
+    />
+  </div>
+
+  <!-- email -->
+  <div class="form-group max-w-lg">
+    <label>Email</label>
+    <input
+      type="text"
+      class="form-control"
+      [class.is-invalid]="
+        !formGroup.get('email').valid && formGroup.get('email').touched
+      "
+      formControlName="email"
+      trim
+    />
+  </div>
+
+  <!-- role -->
+  <h3 class="mb-2">Статус:</h3>
+  <div class="form-check" *ngFor="let role of userRoles">
+    <input
+      class="form-check-input cursor-pointer"
+      type="radio"
+      formControlName="role"
+      id="user-role-{{ role }}"
+      [value]="role"
+    />
+    <label
+      class="form-check-label cursor-pointer {{ role | userRoleColor }}"
+      for="user-role-{{ role }}"
+    >
+      {{ role | userRole }}
+    </label>
+  </div>
+</div>

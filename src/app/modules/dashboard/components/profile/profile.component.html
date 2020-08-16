@@ -1,0 +1,82 @@
+<h1 class="mb-4 text-3xl">
+  <i class="fas fa-user-cog"></i>
+  Мој профил
+</h1>
+
+<!-- Auth user data -->
+<div class="main-section border-green-600">
+  <div class="mb-2 py-2 px-3 shadow-xs">
+    <div
+      class="inline-block mr-3 p-1 w-16 rounded text-center text-gray-700 bg-gray-200"
+    >
+      Име:
+    </div>
+    <strong>{{ authUser.name }}</strong>
+  </div>
+  <div class="mb-2 py-2 px-3 shadow-xs">
+    <div
+      class="inline-block mr-3 p-1 w-16 rounded text-center text-gray-700 bg-gray-200"
+    >
+      Email:
+    </div>
+    <strong>{{ authUser.email }}</strong>
+  </div>
+  <div class="mb-2 py-2 px-3 shadow-xs">
+    <div
+      class="inline-block mr-3 p-1 w-16 rounded text-center text-gray-700 bg-gray-200"
+    >
+      Статус:
+    </div>
+    <strong class="{{ authUser.role | userRoleColor }}">{{
+      authUser.role | userRole
+    }}</strong>
+  </div>
+</div>
+
+<!-- Change password form -->
+<div class="main-section border-blue-600">
+  <h1 class="mb-4 font-semibold text-2xl">Промена лозинке</h1>
+
+  <form [formGroup]="passwordChangeForm" (submit)="onSubmit()">
+    <!-- Password -->
+    <div class="form-group">
+      <label for="password">Нова лозинка</label>
+      <input
+        type="password"
+        class="form-control max-w-lg"
+        [class.is-invalid]="
+          !passwordChangeForm.get('password').valid &&
+          passwordChangeForm.get('password').touched
+        "
+        formControlName="password"
+        (keyup.enter)="onPasswordEnter()"
+        trim
+        #inputPassword
+      />
+    </div>
+
+    <!-- Confirm password -->
+    <div class="form-group">
+      <label for="confirm">Потврда нове лозимке</label>
+      <input
+        type="password"
+        class="form-control max-w-lg"
+        [class.is-invalid]="
+          passwordChangeForm.errors &&
+          passwordChangeForm.errors.passwordsNotMatch &&
+          passwordChangeForm.get('confirm').touched
+        "
+        formControlName="confirm"
+        trim
+        #inputConfirm
+      />
+    </div>
+
+    <!-- Submit -->
+    <app-btn-submit-status
+      class="pt-2 pb-2"
+      [status]="submitStatus"
+      [disabled]="!passwordChangeForm.valid"
+    ></app-btn-submit-status>
+  </form>
+</div>
