@@ -11,6 +11,8 @@ import { FormUserComponent } from './components/shared/form-user/form-user.compo
 import { NewUserComponent } from './components/users/new-user/new-user.component';
 import { EditUserDataComponent } from './components/users/edit-user-data/edit-user-data.component';
 import { EditUserPasswordComponent } from './components/users/edit-user-password/edit-user-password.component';
+import { UserRowComponent } from './components/users/users-list/user-row/user-row.component';
+import { AuthUserRowComponent } from './components/users/users-list/auth-user-row/auth-user-row.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { EditUserPasswordComponent } from './components/users/edit-user-password
     NewUserComponent,
     EditUserDataComponent,
     EditUserPasswordComponent,
+    UserRowComponent,
+    AuthUserRowComponent,
   ],
   imports: [
     CommonModule,

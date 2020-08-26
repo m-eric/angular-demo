@@ -30,40 +30,14 @@
         </tr>
       </thead>
       <tbody>
-        <!-- loop: one row per user -->
-        <tr *ngFor="let user of users">
-          <td>{{ user.name }}</td>
-          <td>{{ user.email }}</td>
-          <td class="{{ user.role | userRoleColor }}">
-            {{ user.role | userRole }}
-          </td>
-          <td class="text-right" style="padding-top: 8px; padding-bottom: 8px;">
-            <!-- other users -->
-            <div *ngIf="this.authUser.id !== user.id">
-              <a [routerLink]="[user.id, 'promena-lozinke']">
-                <i
-                  class="fas fa-unlock-alt mr-1 p-2 cursor-pointer text-xl text-blue-500 hover:text-blue-700"
-                  title="Промена лозинке"
-                ></i>
-              </a>
-              <a [routerLink]="[user.id, 'izmena']">
-                <i
-                  class="fas fa-edit p-2 cursor-pointer text-xl text-blue-500 hover:text-blue-700"
-                  title="Измена"
-                ></i>
-              </a>
-            </div>
-            <!-- auth user -->
-            <div *ngIf="this.authUser.id === user.id">
-              <a routerLink="/profil">
-                <i
-                  class="fas fa-user-cog p-2 cursor-pointer text-xl text-gray-600 hover:text-gray-700"
-                  title="Профил"
-                ></i>
-              </a>
-            </div>
-          </td>
-        </tr>
+        <ng-container *ngFor="let user of users">
+          <tr
+            app-auth-user-row
+            *ngIf="authUser.id === user.id"
+            [authUser]="authUser"
+          ></tr>
+          <tr app-user-row *ngIf="authUser.id !== user.id" [user]="user"></tr>
+        </ng-container>
       </tbody>
     </table>
   </div>

@@ -1,0 +1,15 @@
+<td>{{ authUser.name }}</td>
+<td>{{ authUser.email }}</td>
+<td class="{{ authUser.role | userRoleColor }}">
+  {{ authUser.role | userRole }}
+</td>
+<td class="text-right" style="padding-top: 8px; padding-bottom: 8px;">
+  <div>
+    <a routerLink="/profil">
+      <i
+        class="fas fa-user-cog p-2 cursor-pointer text-xl text-gray-600 hover:text-gray-700"
+        title="Профил"
+      ></i>
+    </a>
+  </div>
+</td>

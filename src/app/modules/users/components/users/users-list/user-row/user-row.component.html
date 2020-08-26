@@ -1,0 +1,21 @@
+<td>{{ user.name }}</td>
+<td>{{ user.email }}</td>
+<td class="{{ user.role | userRoleColor }}">
+  {{ user.role | userRole }}
+</td>
+<td class="text-right" style="padding-top: 8px; padding-bottom: 8px;">
+  <div>
+    <a class="edit-user-data" [routerLink]="[user.id, 'izmena']">
+      <i
+        class="fas fa-edit p-2 cursor-pointer text-xl text-blue-500 hover:text-blue-700"
+        title="Измена"
+      ></i>
+    </a>
+    <a class="edit-user-password" [routerLink]="[user.id, 'promena-lozinke']">
+      <i
+        class="fas fa-unlock-alt mr-1 p-2 cursor-pointer text-xl text-blue-500 hover:text-blue-700"
+        title="Промена лозинке"
+      ></i>
+    </a>
+  </div>
+</td>

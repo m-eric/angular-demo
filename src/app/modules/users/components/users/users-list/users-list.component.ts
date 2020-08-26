@@ -1,5 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { User } from './../../../../../core/models/users/user.model';
@@ -11,6 +16,7 @@ import { AuthService } from './../../../../../core/services/auth/auth.service';
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersListComponent implements OnInit, OnDestroy {
   users: User[] = [];
@@ -19,15 +25,15 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
   constructor(
     private usersService: UsersService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.usersSubscription = this.usersService.users.subscribe(
       (users: User[]) => {
         this.users = users;
+        this.cdr.markForCheck();
       }
     );
     this.authUser = this.authService.user.getValue();

@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -8,6 +15,7 @@ import { AuthService } from './../../../../core/services/auth/auth.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
   errorMessage = null;
@@ -17,7 +25,11 @@ export class LoginComponent implements OnInit {
   @ViewChild('inputPassword') inputPassword: ElementRef;
   @ViewChild('buttonSubmit') buttonSubmit: ElementRef;
 
-  constructor(private _authService: AuthService, private router: Router) {}
+  constructor(
+    private _authService: AuthService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -56,11 +68,13 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
         this.buttonSubmit.nativeElement.disabled = false;
         this.router.navigate(['/']);
+        this.cdr.detectChanges();
       },
       (err) => {
         this.isLoading = false;
         this.errorMessage = err;
         this.buttonSubmit.nativeElement.disabled = false;
+        this.cdr.detectChanges();
       }
     );
   }

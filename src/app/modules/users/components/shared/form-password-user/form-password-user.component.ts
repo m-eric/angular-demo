@@ -1,10 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-form-password-user',
   templateUrl: './form-password-user.component.html',
   styleUrls: ['./form-password-user.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormPasswordUserComponent implements OnInit {
   @Input() formGroup: FormGroup;

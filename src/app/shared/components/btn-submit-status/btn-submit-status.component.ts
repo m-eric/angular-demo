@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { Location } from '@angular/common';
 
 import {
@@ -10,6 +16,7 @@ import {
   selector: 'app-btn-submit-status',
   templateUrl: './btn-submit-status.component.html',
   styleUrls: ['./btn-submit-status.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BtnSubmitStatusComponent implements OnInit, OnChanges {
   @Input() class: string = '';

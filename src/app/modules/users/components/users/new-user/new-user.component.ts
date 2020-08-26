@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -11,13 +17,18 @@ import { UsersService } from './../../../../../core/services/users/users.service
   selector: 'app-new-user',
   templateUrl: './new-user.component.html',
   styleUrls: ['./new-user.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewUserComponent implements OnInit, OnDestroy {
   userForm: FormGroup;
   submitStatus: BTN_SUBMIT_STATUS = '';
   submitSubscription: Subscription;
 
-  constructor(private usersService: UsersService, private location: Location) {}
+  constructor(
+    private usersService: UsersService,
+    private location: Location,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.userForm = new FormGroup(
@@ -61,9 +72,11 @@ export class NewUserComponent implements OnInit, OnDestroy {
       .subscribe(
         (res) => {
           this.submitStatus = 'success';
+          this.cdr.detectChanges();
         },
         (err) => {
           this.submitStatus = 'error';
+          this.cdr.detectChanges();
         }
       );
 

@@ -1,4 +1,10 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 import { AuthService } from './../../services/auth/auth.service';
 import { MiscellaneousService } from './../../services/miscellaneous/miscellaneous.service';
@@ -7,6 +13,7 @@ import { MiscellaneousService } from './../../services/miscellaneous/miscellaneo
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
   @Output() toggleSidebar = new EventEmitter<void>();

@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { environment } from './../../../../environments/environment';
@@ -9,24 +15,33 @@ import { AuthService } from './../../services/auth/auth.service';
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent implements OnInit, OnDestroy {
   isToggled: boolean;
-  role = "";
-  brandTitle = "";
-  brandLink = "";
+  role = '';
+  brandTitle = '';
+  brandLink = '';
   sidebarToggledSubscription: Subscription;
   authUserSubscription: Subscription;
 
-  constructor(private miscellaneousService: MiscellaneousService, private authService:AuthService) {}
+  constructor(
+    private miscellaneousService: MiscellaneousService,
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this.sidebarToggledSubscription = this.miscellaneousService.getSidebarToggled().subscribe((toggled) => {
-      this.isToggled = toggled;
-    });
+    this.sidebarToggledSubscription = this.miscellaneousService
+      .getSidebarToggled()
+      .subscribe((toggled) => {
+        this.isToggled = toggled;
+        this.cdr.detectChanges();
+      });
     this.role = this.authService.user.getValue().role;
     this.brandTitle = environment.brandTitle;
     this.brandLink = environment.brandLink;
+    this.cdr.detectChanges();
   }
 
   onToggleSidebar() {

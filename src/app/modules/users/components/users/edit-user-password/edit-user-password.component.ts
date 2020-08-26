@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -13,6 +19,7 @@ import { BTN_SUBMIT_STATUS } from 'src/app/core/models/btn-submit/btn-submit-sta
   selector: 'app-edit-user-password',
   templateUrl: './edit-user-password.component.html',
   styleUrls: ['./edit-user-password.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditUserPasswordComponent implements OnInit, OnDestroy {
   user: User;
@@ -25,7 +32,8 @@ export class EditUserPasswordComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private location: Location,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -85,9 +93,11 @@ export class EditUserPasswordComponent implements OnInit, OnDestroy {
       .subscribe(
         (res) => {
           this.submitStatus = 'success';
+          this.cdr.detectChanges();
         },
         (err) => {
           this.submitStatus = 'error';
+          this.cdr.detectChanges();
         }
       );
   }

@@ -8,10 +8,10 @@
       "role": "SYSADMIN"
     },
     {
-      "name": "Drugi",
+      "name": "Drugi Korisnik",
       "email": "asd@asd.asd",
-      "role": "DISABLED",
-      "password": "TbDc5uN9T8TE",
+      "role": "USER",
+      "password": "P83pClwNBmD2",
       "id": 2
     }
   ]
